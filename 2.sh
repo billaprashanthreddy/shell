@@ -5,13 +5,12 @@ for((i=1; i<=rows; i++))
 do
   for((j=1; j<=i; j++))
   do
-    echo -n "* "
+    echo -n "$j"
   done
   echo
 done
-
-#output will come below pattern
-#* 
-#* *
-#* * *
-#* * * *
+ #output
+#1
+#12
+#123
+#1234
