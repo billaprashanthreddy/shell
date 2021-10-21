@@ -87,3 +87,280 @@ answer:
 while read line; do
   echo -e "$line" | cut -f -3
 done
+
+********************
+Print the characters from thirteenth position to the end.
+
+Input Format
+
+A text file with lines of ASCII text only.
+
+Constraints
+
+
+(N is the number of lines of text in the input file)
+
+Output Format
+
+The output should contain N lines. For each input line, print the characters from thirteenth position to the end.
+
+Sample Input
+
+New York is a state in the Northeastern and Mid-Atlantic regions of the United States. 
+New York is the 27th-most extensive, the third-most populous populated of the 50 United States. 
+New York is bordered by New Jersey and Pennsylvania to the south.
+About one third of all the battles of the Revolutionary War took place in New York.
+Henry Hudson's 1609 voyage marked the beginning of European involvement with the area.
+Sample Output
+
+a state in the Northeastern and Mid-Atlantic regions of the United States. 
+the 27th-most extensive, the third-most populous populated of the 50 United States. 
+bordered by New Jersey and Pennsylvania to the south.
+ird of all the battles of the Revolutionary War took place in New York.
+'s 1609 voyage marked the beginning of European involvement with the area.
+
+
+answer:
+cut -b 13-
+
+
+******************************************
+Given a sentence, identify and display its fourth word. Assume that the space (' ') is the only delimiter between words.
+
+Input Format
+
+A text file with lines of ASCII text only. Each line has exactly one sentence.
+
+Constraints
+
+
+(N is the number of lines of text in the input file)
+
+Output Format
+
+The output should contain N lines.
+
+For each input sentence, identify and display its fourth word. Assume that the space (' ') is the only delimiter between words.
+
+Sample Input
+
+Hello
+World
+how are you
+Sample Output
+
+Hello
+World
+
+answer:
+
+cut -d " " -f4
+
+exp:From man cut:
+
+   -f, --fields=LIST
+          select only these fields;  also print any line that contains no delimiter character, unless the -s option is specified
+If a line contains 1 word, then it does not contain the delimiter and therefore cut prints the whole line (which is exactly that one word).
+
+Other cases are obvious: the line contains at least one delimiter, therefore it prints the fourth word, if available.
+
+If you add the -s parameter, it will print the fourth word only if available (and thus ignore lines with one word without delimiter).
+
+*****************************
+
+Given a sentence, identify and display its first three words. Assume that the space (' ') is the only delimiter between words.
+
+Input Format
+
+A text file with lines of ASCII text only. Each line has exactly one sentence.
+
+Constraints
+
+
+(N is the number of lines of text in the input file)
+
+Output Format
+
+The output should contain N lines. For each input sentence, identify and display its first three words. Assume that the space (' ') is the only delimiter between words.
+
+Sample Input
+
+New York is a state in the Northeastern and Mid-Atlantic regions of the United States. 
+New York is the 27th-most extensive, the third-most populous populated of the 50 United States. 
+New York is bordered by New Jersey and Pennsylvania to the south.
+About one third of all the battles of the Revolutionary War took place in New York.
+Henry Hudson's 1609 voyage marked the beginning of European involvement with the area.
+Sample Output
+
+New York is
+New York is
+New York is
+About one third
+Henry Hudson's 1609
+
+answer:
+cut -d " "  -f 1-3
+
+********************************************
+Given a tab delimited file with several columns (tsv format) print the fields from second fields to last field.
+
+Input Format
+
+A tab-separated file with lines of ASCII text only.
+
+Constraints
+
+
+
+(N is the number of lines of text in the input file and C is the number of columns of data in the file)
+
+Output Format
+
+The output should contain N lines.
+
+For each line in the input, print the fields from second fields to last field.
+
+Sample Input
+
+1   New York, New York[10]  8,244,910   1   New York-Northern New Jersey-Long Island, NY-NJ-PA MSA  19,015,900  1   New York-Newark-Bridgeport, NY-NJ-CT-PA CSA 22,214,083
+2   Los Angeles, California 3,819,702   2   Los Angeles-Long Beach-Santa Ana, CA MSA    12,944,801  2   Los Angeles-Long Beach-Riverside, CA CSA    18,081,569
+3   Chicago, Illinois   2,707,120   3   Chicago-Joliet-Naperville, IL-IN-WI MSA 9,504,753   3   Chicago-Naperville-Michigan City, IL-IN-WI CSA  9,729,825
+4   Houston, Texas  2,145,146   4   Dallas-Fort Worth-Arlington, TX MSA 6,526,548   4   Washington-Baltimore-Northern Virginia, DC-MD-VA-WV CSA 8,718,083
+5   Philadelphia, Pennsylvania[11]  1,536,471   5   Houston-Sugar Land-Baytown, TX MSA  6,086,538   5   Boston-Worcester-Manchester, MA-RI-NH CSA   7,601,061
+Sample Output
+
+New York, New York[10]  8,244,910   1   New York-Northern New Jersey-Long Island, NY-NJ-PA MSA  19,015,900  1   New York-Newark-Bridgeport, NY-NJ-CT-PA CSA 22,214,083
+Los Angeles, California 3,819,702   2   Los Angeles-Long Beach-Santa Ana, CA MSA    12,944,801  2   Los Angeles-Long Beach-Riverside, CA CSA    18,081,569
+Chicago, Illinois   2,707,120   3   Chicago-Joliet-Naperville, IL-IN-WI MSA 9,504,753   3   Chicago-Naperville-Michigan City, IL-IN-WI CSA  9,729,825
+Houston, Texas  2,145,146   4   Dallas-Fort Worth-Arlington, TX MSA 6,526,548   4   Washington-Baltimore-Northern Virginia, DC-MD-VA-WV CSA 8,718,083
+Philadelphia, Pennsylvania[11]  1,536,471   5   Houston-Sugar Land-Baytown, TX MSA  6,086,538   5   Boston-Worcester-Manchester, MA-RI-NH CSA   7,601,061
+
+answer:
+cut -f 2-
+
+**********************************
+
+print to 20 lines in afile
+
+head -n 20
+***************
+print the 20 charceters of a file
+
+head -c 20
+*****************
+Display the lines (from line number 12 to 22, both inclusive) for the input file.
+
+answ: head -n 22 | tail -11
+
+exp:Print line between M and N lines(M>N): For this purpose, we use the head, tail, and pipeline(|) commands.
+The command is: head -M file_name | tail +N since the head command takes first M lines and from M lines tail command cuts lines starting from +N till the end, 
+we can also use head -M file_name | tail +(M-N+1) command since the head command takes first M lines and from M lines tail command cuts (M-N+1) lines starting from the end. 
+Let say from the state.txt file we have to print lines between 10 and 20. 
+ 
+**********************************
+
+Display the last 20 lines of an input file
+
+ans: tail -n 20
+or 
+tail 20
+
+*************************************
+Display the last 20  characters of an input file.
+
+tail -c 20
+*********************************************
+
+n this challenge, we practice using the tr command because it is a useful translation tool in Linux.
+
+In a given fragment of text, replace all parentheses   with box brackets  .
+
+Input Format
+
+A block of ASCII text.
+
+Output Format
+
+Output the text with all parentheses   replaced with box brackets  .
+
+Sample Input
+
+int i=(int)5.8
+(23 + 5)*2
+Sample Output
+
+int i=[int]5.8
+[23 + 5]*2
+
+answer:
+tr "()" "[]"
+
+*****************************
+In this challenge, we practice using the tr command because it is a useful translation tool in Linux.
+
+In a given fragment of text, delete all the lowercase characters .
+
+Input Format
+
+A block of ASCII text.
+
+Output Format
+
+Delete all the lowercase characters in the given block of text.
+
+Sample Input
+
+Hello
+World
+how are you
+Sample Output
+
+H
+W
+
+answer
+tr -d [a-z]
+
+*************
+In a given fragment of text, replace all sequences of multiple spaces with just one space.
+
+Input Format
+
+A block of ASCII text.
+
+Output Format
+
+Replace all sequences of multiple spaces with just one space.
+
+Sample Input
+
+He  llo
+Wor  ld
+how  are  you
+Sample Output
+
+He llo
+Wor ld
+how are you
+
+
+answer:
+tr -s [:space:]
+
+How to use squeeze repetition of characters using -s
+To squeeze repeat occurrences of characters specified in a set use the -s option. This removes repeated instances of a character.
+OR we can say that,you can convert multiple continuous spaces with a single space
+
+$ echo "Welcome    To    GeeksforGeeks" | tr -s [:space:] ' '
+Output:
+
+Welcome To GeeksforGeeks
+
+**************************
+
+
+
+
+
+
+
