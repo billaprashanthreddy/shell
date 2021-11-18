@@ -941,6 +941,435 @@ answer:
 sed -e 's/[tT]hy/{&}/g'
 
 ********************************************
+Given  lines of credit card numbers, mask the first  digits of each credit card number with an asterisk (i.e., *) and print the masked card number on a new line. Each credit card number consists of four space-separated groups of four digits. For example, the credit card number 1234 5678 9101 1234 would be masked and printed as **** **** **** 1234.
+
+References
+You may find the following links helpful in learning about sed:
+
+Sed: An Introduction and Tutorial
+The TLDP Guide
+Some Practical Examples
+A StackOverflow question on a slightly modified version of this task where the solution involves backreferences.
+A ttuorial from TheGeekStuff detailing the use of groups and backreferences.
+Input Format
+
+Each line contains a credit card number in the form dddd dddd dddd dddd, where  denotes a decimal digit (i.e.,  through ). There are a total of  lines of credit card numbers.
+
+Constraints
+
+; note that the value of  does not matter when writing your command.
+Output Format
+
+For each credit card number, print its masked version on a new line.
+
+Sample Input
+
+1234 5678 9101 1234  
+2999 5178 9101 2234  
+9999 5628 9201 1232  
+8888 3678 9101 1232  
+Sample Output
+
+**** **** **** 1234
+**** **** **** 2234
+**** **** **** 1232
+**** **** **** 1232
+
+answer
+sed s/[0-9]\+ /***** /g
+
+*****************************
+Input Format
+
+N credit card numbers, each in a new line, credit card numbers will have 4 space separated segments with 4 digits each.
+
+Constraints
+
+However, the value of N does not matter while writing your command.
+
+Output Format
+
+N lines, each containing a credit card number with the ordering of its segments reversed.
+
+Sample Input
+
+1234 5678 9101 1234  
+2999 5178 9101 2234  
+9999 5628 9201 1232  
+8888 3678 9101 1232
+Sample Output
+
+1234 9101 5678 1234  
+2234 9101 5178 2999  
+1232 9201 5628 9999  
+1232 9101 3678 8888 
+Explanation
+
+The order of the four segments in the (input) credit card numbers have been reversed.
+
+answer:
+sed -r ' s/(.... )(.... )(.... )(..... )(....)/\4 \3\2\1'
+sed -r 's/(.+ )(.+ )(.+ )(....)/\4 \3\2\1/'
+
+**********************************************************************************
+
+
+
+Add string before and after the matching pattern using ‘\1’
+The sequence of matching patterns of `sed` command is denoted by ‘\1’, ‘\2’ and so on. The following `sed` command will search the pattern, 
+‘Bash’ and if the pattern matches then it will 
+be accessed by ‘\1′ in the part of replacing text. Here, the text, ‘Bash’ is searched in the input text and, one text is added before and 
+another text is added after ‘\1’.
+
+$ echo "Bash language" | sed  's/\(Bash\)/Learn \1 programming/'
+Output:
+
+The following output will appear after running the above command. Here, ‘Learn’ text is added before ‘Bash’ and ‘programming’ text is added after ‘Bash’.
+
+***********************************************
+Given a list of countries, each on a new line, your task is to read them into an array and then display the entire array, with a space between each of the countries' names.
+
+Recommended References
+Here's a great tutorial tutorial with useful examples related to arrays in Bash.
+
+Input Format
+
+A list of country names. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+Display the entire array of country names, with a space between each of them.
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway
+
+answer 
+echo $(cat)
+
+__
+i=0
+while read line
+do
+array[$i]=$line
+((i+=1))
+done
+
+echo ${array[@]}
+
+**************
+Given a list of countries, each on a new line, your task is to read them into an array. 
+Then slice the array and display only the elements lying between positions  and , both inclusive. Indexing starts from from .
+
+Input Format
+
+A list of country names. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+Display the sliced portion of the array of country names, with a space between each of them.
+
+Sample Input
+
+Namibia  
+Nauru  
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+Netherlands NewZealand Nicaragua Niger Nigeria
+
+answrr:
+	
+
+explanation
+Extraction by offset and length for an array
+The following example shows the way to extract 2 elements starting from the position 3 from an array called Unix.
+
+$cat arraymanip.sh
+Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+echo ${Unix[@]:3:2}
+
+$./arraymanip.sh
+Suse Fedora
+
+******************
+Objective
+We now transition to some basic examples of bash scripting for the purpose of text processing and data munging. In this challenge, we practice reading and filtering an array.
+
+Resources
+Here's a great tutorial with useful examples related to arrays in Bash.
+
+Task
+You are given a list of countries, each on a new line. Your task is to read them into an array and then filter out (remove) all the names containing the letter 'a' or 'A'.
+
+Input Format
+
+The input format consists of a list of country names, each on a separate line. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+From the given list, remove the names that contain 'a' or 'A' in them. If there are no names left after removing these characters, you should display a blank line.
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+answer:
+
+echo ${array[@]/*[Aa]*/}
+
+while read word; do
+    array=(${array[*]} $word)
+done
+
+for var in ${array[*]}; do
+    if echo $var | grep 'A' > /dev/null ; then
+        continue
+    elif echo $var | grep 'a'> /dev/null; then 
+        continue
+    else
+        echo $var
+    fi
+done
+
+*******************
+Given a list of countries, each on a new line, your task is to read them into an array. Then, concatenate the array with itself (twice) - so that you have a total of three repetitions of the original array - and then display the entire concatenated array, with a space between each of the countries' names.
+
+Recommended References
+Here's a great tutorial tutorial with useful examples related to arrays in Bash.
+
+Input Format
+
+A list of country names. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+Display the entire concatenated array, with a space between each of them.
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway
+Explanation
+
+The entire concatenated array has been displayed.
+
+answer:
+for line in `cat`; do
+    countries=( "${countries[@]}" $line )
+done
+
+countries=("${countries[@]}" "${countries[@]}" "${countries[@]}")
+echo "${countries[@]}"
+
+******************
+Given a list of countries, each on a new line, your task is to read them into an array and then display the element indexed at . Note that indexing starts from .
+
+Recommended References
+Here's a great tutorial tutorial with useful examples related to arrays in Bash.
+
+Input Format
+
+A list of country names. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+The element at index  of the array (one string).
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+Netherlands
+Explanation
+
+The element at index  in the list is Netherlands.
+i=0
+while read line
+do
+array[$i]=$line
+((i+=1))
+done
+
+echo ${array[3]}
+*******************************
+Given a list of countries, each on a new line, your task is to read them into an array and then display the count of elements in that array.
+
+Recommended References
+Here's a great tutorial tutorial with useful examples related to arrays in Bash.
+
+Input Format
+
+A list of country names. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+A single integer - the number of elements in the array.
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+10
+Explanation
+
+There are 10 elements in the array - i.e. the given list has the names of 10 countries.
+
+i=0
+while read line
+do
+array[$i]=$line
+((i+=1))
+done
+
+echo ${#array[@]}
+
+***********************
+Objective
+In this challenge, we practice reading and transforming arrays.
+
+Resources
+Here's a great tutorial with useful examples related to arrays in Bash.
+
+Task
+You are given a list of countries, each on a new line. Your task is to read them into an array and then transform them in the following way:
+
+The first capital letter (if present) in each element of the array should be replaced with a dot ('.'). Then, display the entire array with a space between each country's names.
+
+Input Format
+
+The input format consists of a list of country names each on a separate line. The only characters present in the country names will be upper or lower case characters and hyphens.
+
+Output Format
+
+Transform the names as described and display the entire array of country names with a space between each of them.
+
+Sample Input
+
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+Sample Output
+
+.amibia .auru .epal .etherlands .ewZealand .icaragua .iger .igeria .orthKorea .orway
+
+Explanation
+
+The first capital letter of each name has been replaced with a dot ('.').
+
+arr=($(cat))
+for i in "${arr[@]}"
+do
+echo -n .${i:1}" "
+done
+
+** echo ${ary[@]/[A-Z]/.}
+***************
+
+
+Task
+You are given a file with four space separated columns containing the scores of students in three subjects. The first column contains a single character (), the student identifier. The next three columns have three numbers each. The numbers are between  and , both inclusive. These numbers denote the scores of the students in English, Mathematics, and Science, respectively.
+
+Your task is to identify those lines that do not contain all three scores for students.
+
+Input Format
+
+There will be no more than  rows of data.
+Each line will be in the following format:
+[Identifier][English Score][Math Score][Science Score]
+
+Output Format
+
+For each student, if one or more of the three scores is missing, display:
+
+Not all scores are available for [Identifier]
+Sample Input
+
+A 25 27 50
+B 35 75
+C 75 78 
+D 99 88 76
+Sample Output
+
+Not all scores are available for B
+Not all scores are available for C
+Explanation
+
+Only  scores have been provided for student B and student C.
+
+awk '{if ($4 == "") print "Not all scores are available for",$1;}'
+
+*******************************************
+
+
+
+
 
 
 

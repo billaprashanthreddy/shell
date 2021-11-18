@@ -1,0 +1,156 @@
+## declaring user varaibles in shell script
+var1=50
+var2=$var1
+
+echo "vaule of var1 is $var1"
+echo "vaule of var2 is $var2"
+
+### paasing coomand line arguments
+
+var1=$1
+var2=$2
+
+echo "vaule of var1 is $var1"
+echo "vaule of var2 is $var2"
+
+sh shell.sh 23 25
+### usage of $@ $* $#
+
+### $*	It stores all the command line arguments as a single word.
+# $@	It stores all the command line arguments as separate words. 
+You can iterate through arguments using for command.
+# $#	It refers to the number of command line arguments.
+
+
+var1=$1
+var2=$2
+var3=$#
+var4=$@
+
+echo  "vaule of var1 is $var1"
+echo  "vaule of var2 is $var2"
+echo  "vaule of var3  is $var3"
+echo  "vaule of var4 is $var4"
+echo  "vaule of var5 is $var4"
+#coundting specific word in a given srting
+
+count=0
+for arguments in "$@"
+do
+        var="$arguments"
+
+ if [ "$arguments" == "billa" ]; then
+  echo "\$@ Argument $count: $arguments"
+  count=$((count+1))
+else
+        echo "dint match the string"
+ fi
+done
+echo "billa count is $count"
+
+$bash script.sh $(cat file.txt | grep string)
+
+grep -ow 'billa' billa.sh | wc -l
+
+https://tldp.org/LDP/abs/html/
+#arithmatic operartions
+
+Using double parenthesis $(())
+Using square bracket $[]
+Bash expr command
+Bash bc command
+
+
+str1="billa"
+str2="billa2"
+str3="billa"
+
+if [ "$str1" = "$str2" ]; then
+echo "string matched"
+else
+echo "string didnt match"
+fi
+
+
+if [ -n str1 ]; then
+echo " string legnth is greter then zero"
+else 
+echo "sting lenht nit zero"
+
+if [ -z str1 ]; then
+echo " string legnth is  zero"
+else 
+echo "sting lenht not zero"
+
+password="123456"
+read -s -p "Enter a password: " pass
+echo
+if [ $password == $pass ]
+then
+  echo "Both passwords are same."
+else
+  echo "Both passwords are not same."
+fi
+
+
+###print  table
+
+read -p "Enter a number to print its table: " number
+for i in {1..10}
+do
+  echo "$number x $i = $((number*i))"
+done
+
+##
+filecount=0
+directorycount=0
+
+for file in /home/ubuntu/*
+do
+  if [ -f $file ]
+  then
+    echo "$file is a file."
+    filecount=$((filecount+1))
+  elif [ -d $file ]
+  then
+    echo "$file is a directory."
+    directorycount=$((directorycount+1))
+  fi
+done
+echo "file count is $filecount "
+echo "directorycount is $directorycount"
+########
+
+read -p "Enter a number: " number
+i=1
+while [ $i -le 10 ]
+do
+  echo "$number x $i = $((number*i))"
+  i=$((i+1))
+done
+#####################
+
+##until
+read -p "Enter a number: " number
+i=1
+until [ $i -eq 11 ]
+do
+  echo "$number x $i = $((number*i))"
+  i=$((i+1))
+done
+#############
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

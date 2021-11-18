@@ -1,0 +1,37 @@
+---
+- name: 'Install and configure apache server'
+  hosts: all
+  become: yes
+  tasks:
+    - name: install apache2 and update ubuntu package definitions
+      apt:
+        name: apache2
+        update_cache: yes
+        state: present
+    - name: enable and start apache2
+      service:
+        name: apache2
+        enabled: yes
+        state: restarted
+    - name: install php in ubuntu node
+      apt:
+        name: php
+        update_cache: yes
+        state: present
+    - name: install libapche2-mod php
+      apt:
+        name: libapache2-mod-php
+        state: present
+    - name: install php mysql
+      apt:
+        name: php-mysql
+        state: present
+    - name: install php cli
+      apt:
+        name: php-cli
+        state: present
+    -name: restart apache2 service
+     service:
+       name: apache2
+       state: restarted
+       
